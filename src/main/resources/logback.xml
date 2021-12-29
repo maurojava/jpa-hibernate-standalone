@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+ <!--  commented for use only the file for log the hibernate statement and not the STOUT
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+ -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+    
+  <!--       <file>${catalina.home}/logs/WineBackboneJEE.log</file>  -->
+           <file>logs/jpa-hibernate-standalone.log</file> 
+      
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+ 
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      
+         <!--       <FileNamePattern>${catalina.home}/logs/WineBackboneJEE.%i.zip</FileNamePattern>  -->
+        
+ <FileNamePattern>logs/jpa-hibernate-standalone.%i.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>30</MaxIndex>
+        </rollingPolicy>
+ 
+        <triggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2MB</MaxFileSize>
+        </triggeringPolicy>
+ 
+    </appender>
+  <logger name="org.hibernate" level="TRACE" additivity="false">
+        <appender-ref ref="FILE"/>
+          </logger>
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+ 
+    <root level="TRACE">
+      <appender-ref ref="FILE" />
+
+<!--  commented for use only the file for log  -->
+
+   <!--       <appender-ref ref="STDOUT" />  -->
+    </root>
+ 
+</configuration>
+
+
